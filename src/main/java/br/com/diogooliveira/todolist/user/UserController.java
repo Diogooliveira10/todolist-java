@@ -1,5 +1,6 @@
 package br.com.diogooliveira.todolist.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 // http://localhost:8080/users/
 public class UserController {
 
+    @Autowired // Gerencia e instancia todo o ciclo de vida do Spring.
+    private IUserRepository userRepository;
+
     /*
      * String  (texto)
      * Integer (int) números inteiros.
@@ -32,8 +36,8 @@ public class UserController {
     * dentro do corpo da requisição -> @RequestBody
     */
     @PostMapping("/")
-    public void create(@RequestBody UserModel userModel) {
-        System.out.println(userModel.getUsername());
-        System.out.println(userModel.getName());
+    public UserModel create(@RequestBody UserModel userModel) {
+        var userCreated = this.userRepository.save(userModel);
+        return userCreated;
     }
 }
