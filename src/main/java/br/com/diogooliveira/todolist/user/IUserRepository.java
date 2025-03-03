@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // <> a classe recebe um generator.
 public interface IUserRepository extends JpaRepository<UserModel, UUID> {
 
-    
+    UserModel findByUsername(String username);
 }
